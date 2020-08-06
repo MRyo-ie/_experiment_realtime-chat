@@ -2,27 +2,27 @@
 「サーバーとのリアルタイム同期」を、実際に動かして試してみた。  
 （大学院の講義『UI/UX論』の課題の一貫で）  
 - 主に WebSocket について。
-- JavaScript / Python について、動きそうなソースコードを一通り触ってみた。 
+- JavaScript / Python で動きそうなソースコードを一通りさわってみた。 
 
 
 ## JS
 1. [5分で動かせるwebsocketのサンプル3つ](https://qiita.com/okumurakengo/items/a8ccea065f5659d1a1de) の socket.io の例を動かしてみた。
-   - 普通に動いた。
+   - 結果
+     - 普通に動いた。
+     - 実行結果（元サイトより引用）
+       - ![](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F142910%2Fa02daae2-b27d-7456-bbf7-0ba3379110e5.gif?ixlib=rb-1.2.2&auto=format&gif-q=60&q=75&w=1400&fit=max&s=d3fbedd021c08946e42d7a58841ee240)
    - 起動方法
      - server (node.js)
          ```
          $ cd JS/socket.io/server
          $ node run
          ```
-       - node.js
-       - 必要ライブラリ
+       - 必要ライブラリ（Node.js）
          - express
          - http
-         - socket.io
+         - socket.io（WebSocket のラッパー？）
      - client (ブラウザ)
          http://localhost:3000
-   - 実行結果（元サイトより引用）
-     - ![](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F142910%2Fa02daae2-b27d-7456-bbf7-0ba3379110e5.gif?ixlib=rb-1.2.2&auto=format&gif-q=60&q=75&w=1400&fit=max&s=d3fbedd021c08946e42d7a58841ee240)
 
 
 
@@ -34,13 +34,6 @@
        - ![デモ_再接続](https://user-images.githubusercontent.com/23465225/89506116-95547e00-d805-11ea-832c-adbf0492a0e5.gif)
      - リアルタイムで メッセージが同期されることを確認した。
        - ![デモ_リアルタイム同期](https://user-images.githubusercontent.com/23465225/89508522-fdf12a00-d808-11ea-93ee-faaad77789df.gif)
-     - （おまけ）以下、動くまでの経緯など
-       1. 元サイトのソースコードは、一応は動いた。
-          - が、複数ページ間での同期はされなかった。（未実装）
-          - 諦めて、2. のサイトのに移行した。
-       2. 2.が失敗した後、
-          - 3.と組み合わせれば行けそうだったので、3. をベースに改良。
-            → まともに動いた。
    - install
         ```
         cd Python/gevent-websocket-flask
@@ -54,6 +47,14 @@
         ```
      - client (ブラウザ jquery)
         http://localhost:8080
+   - （おまけ）動くまでの経緯など
+     1. 元サイトのソースコードは、一応は動いた。
+        - が、複数ページ間での同期はされなかった。（未実装）
+        - 諦めて、2. のサイトのに移行した。
+     2. 2.が失敗した後、
+        - 3.と組み合わせれば行けそうだったので、3. をベースに改良。
+          → 動いた！
+
 
 2. [Responder + WebSocketで簡易チャットアプリ](https://qiita.com/KeisukeToyota/items/6da58ef0152bb14869ff)
    - 動かなかった...。
