@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <meta charset="utf-8"> 
+    <title>Responder Websocket Chat</title> 
+    <style> 
+      input {
+        border: 1px solid #000;
+        border-radius: 5px;
+        height: 30px;
+        width: 500px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        font-size: 15px;
+        padding: 10px;
+        border: 2px solid #000; 
+        word-break: break-word;
+      }
+
+      li:not(:first-child) {
+	border-top: none;
+      }
+
+      li:nth-child(even) {
+        background: #ccc;
+      }
+    </style>
+  </head> 
+  
+  <body>
+    <h1>Responder WebSocket Chat</h1>
+    <input type="text" id="textbox" placeholder="ここにメッセージを入れてEnterキーを押してね">
+
+    <ul id="chat">
+    </ul>
+
+    <script>
+        const url = 'wss://' + location.hostname + '/ws'
+        //const url = 'ws://localhost:5042/ws'
+        const ws = new WebSocket(url);
+        const textbox = document.getElementById('textbox');
+        const chat = document.getElementById('chat');
+
+        ws.onmessage = function (e) {
+          const li = document.createElement('li');
+          li.textContent = e.data;
+          chat.appendChild(li);
+        }
+
+        window.onload = function () {
+          textbox.addEventListener('keypress', function (e) {
+            if (e.keyCode == 13) {
+              ws.send(textbox.value);
+              textbox.value = "";
+            }
+          });
+        }
+    </script>
+  </body>
+</html>
